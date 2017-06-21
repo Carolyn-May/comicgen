@@ -1,6 +1,9 @@
 CACHE MANIFEST
 # v5
+index.html
+overworldView.html
 comicgen.js
+overworld.js
 estilo.css
 jquery-1.5.2.min.js
 pop.mp3
@@ -35,6 +38,8 @@ toons/z03_mini.png
 toons/z03.png
 toons/z04_mini.png
 toons/z04.png
+panels/squarePanel.png
+panels/squarePanel_mini.png
 
 NETWORK:
 

@@ -9,18 +9,18 @@ var fontFamily = "Arial, helvetica";
 var pop = new Audio('pop.ogg');
 var currentObj = null;
 
-scene.add( scene.rect(w, h, 'white') ); //scene.add attaches the object o in ragaboom's this.add = function(o) to the scene object
+scene.add( scene.rect(w, h, 'gray') ); //scene.add attaches the object o in ragaboom's this.add = function(o) to the scene object
 //basically adds a new object to the screen
 scene.update(); //update the canvas only once - repainting every object in the Canvas area
 
 var lib = $('#lib');
 //keeps the URL for each image of the toolbar - need to change these names in both arrays when I change the sprite images
-var miniUrls = ["sm01_mini.png", "sm02_mini.png", "sm03_mini.png", "sushi_mini.png", "z01_mini.png", "z02_mini.png", "z03_mini.png", "z04_mini.png", "balao.png", "toon01_mini.png", "toon02_mini.png", "toon03_mini.png", "toon04_mini.png", "toon05_mini.png", "toon06_mini.png"];
+var miniUrls = ["squarePanel_mini.png"];
 //stores the URL for the actual image that should be placed on the screen
-var toonUrls = ["sm01.png", "sm02.png", "sm03.png", "sushi.png", "z01.png", "z02.png", "z03.png", "z04.png", "balao.png", "toon01.png", "toon02.png", "toon03.png", "toon04.png", "toon05.png", "toon06.png"];
+var toonUrls = ["squarePanel.png"];
 
 //helper functions for image object coordinates and size
-cg.getX = function(obj) {
+/*cg.getX = function(obj) {
 	return obj.x;
 }
 
@@ -58,7 +58,7 @@ var panel = [
 	    //"rotation" : ""
 	}];
 /////I added this code above
-
+*/
 cg.clearScreen = function(){
 	ctx = c.getContext('2d');
 	scene = new RB.Scene(c);
@@ -111,8 +111,8 @@ d.onmousewheel = function(mw){
 //builds the image toolbar
 cg.buildMinis = function(){
 	var buffer = '';
-	var imgString = "<img src='toons/IMG_URL' class='rc mini'></img>"; //same as comment below
-	var link = "<a href=\"javascript:cg.createImage('toons/IMG_URL')\">"; //if this is commented out, all the sprites disappear and text input cannot be added anymore
+	var imgString = "<img src='panels/IMG_URL' class='rc mini'></img>"; //same as comment below
+	var link = "<a href=\"javascript:cg.createImage('panels/IMG_URL')\">"; //if this is commented out, all the sprites disappear and text input cannot be added anymore
 	
 	for(var i=0; i < miniUrls.length; i++){ //iterates through the miniurls array initialized on line 17
 		buffer += link.replace(/IMG_URL/, toonUrls[i]); //replaces 1st argument string with second argument string
@@ -129,13 +129,12 @@ cg.buildMinis();
 
 //add images to the screen
 cg.createImage = function(url){
-	console.log("cg.createimage");
 	////load an image inside a buffer canvas and return it in a RB.Obj - maybe I can pass in the modified sprites in panel instead?
 	scene.image(url, function(obj){ 
 		//allows the character image to be dragged on the screen (after already being added to the scene)
 		obj.draggable = true;
 		//sets the image in this location after clicking on it
-		obj.setXY(30, 30); 
+		obj.setXY(30 + (Math.random()*100), 30 + (Math.random()*100)); 
 		//obj.setXY(Math.random()*800, Math.random()*800); 
 		
 		obj.onmousedown = function(e){
