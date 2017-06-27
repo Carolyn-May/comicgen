@@ -19,44 +19,30 @@ var miniUrls = ["sm01_mini.png", "sm02_mini.png", "sm03_mini.png", "sushi_mini.p
 //stores the URL for the actual image that should be placed on the screen
 var toonUrls = ["sm01.png", "sm02.png", "sm03.png", "sushi.png", "z01.png", "z02.png", "z03.png", "z04.png", "balao.png", "toon01.png", "toon02.png", "toon03.png", "toon04.png", "toon05.png", "toon06.png"];
 
-//helper functions for image object coordinates and size
-cg.getX = function(obj) {
-	return obj.x;
-}
-
-cg.getY = function(obj) {
-	return obj.y;
-}
-
-cg.getWidth = function(obj) {
-	 return obj.w;
-}
-
-cg.getHeight = function(obj) {
-	return obj.h;
-		
-}
 
 //////////array of modified sprites
-var panel = [
+var examplePanel = [
 	//"sprite01" : 
 	{
 		"name" : "sprite01",
-	    "x" : cg.getX('toons/sm01_mini.png'),
-	    "y" : cg.getY('toons/sm01_mini.png'),
-	    "width" : cg.getWidth('toons/sm01_mini.png'),
-	    "height" : cg.getHeight('toons/sm01_mini.png'),
-	    //"rotation" : ""
+		"url" : "sm01.png",
+	    "x" : "", //cg.x? 
+	    "y" : "",
+	    "width" : "", //cg.w?
+	    "height" : "",
 	},
 	//"sprite02" : 
 	{
 		"name" : "sprite02",
-	    "x" : cg.getX('toons/sm02_mini.png'),
-	    "y" : cg.getY('toons/sm02_mini.png'),
-	    "width" : cg.getWidth('toons/sm02_mini.png'),
-	    "height" : cg.getHeight('toons/sm02_mini.png'),
-	    //"rotation" : ""
+		"url" : "sm02.png",
+		"x" : "",
+	    "y" : "",
+	    "width" : "",
+	    "height" : "",
 	}];
+
+var panel = [];
+
 /////I added this code above
 
 cg.clearScreen = function(){
@@ -71,23 +57,25 @@ cg.clearScreen = function(){
 	scene.add( scene.rect(w, h, 'white') );
 	scene.update();
 }
-//zoom in, up arrow
+//delete or flip sprite on certain key ups
 $(d).keyup(function(e){
 
 	var key = e.keyCode || e.which;
 
 	if(key == 46 && currentObj){
-		scene.remove(currentObj);
+		console.log("deleted sprite - d.keyup(function(e)");
+		scene.remove(currentObj); //removes object from the scene
 		scene.update();
 		RB.destroyCanvas( currentObj.getCanvas().id );
 		currentObj = null;
 	}
 	
 	if( currentObj && (key==37 || key==39) ){
+		console.log("flip sprite - d.keyup(function(e)")
 		cg.hFlip(currentObj);
 	}
 });
-//zoom out, down arrow
+//zoom in and out of sprite on key down
 $(d).keydown(function(event){
 	
 	var key = event.keyCode || event.which;
@@ -138,16 +126,42 @@ cg.createImage = function(url){
 		obj.setXY(30, 30); 
 		//obj.setXY(Math.random()*800, Math.random()*800); 
 		
-		obj.onmousedown = function(e){
+		var dragging = false;
+		
+		obj.onmousedown = function(e){ //enables image dragging on mouse down
+			dragging = true;
+			
+			console.log("being dragged");
+			
 			currentObj = obj;
 			//stack order of element: element with greater stack order is always in front of element with lower stack order
 			scene.zIndex(obj, 1); 
 			//having z index set to 1 makes the character image being dragged in the scene appear in front of any other images in the scene
-
-			scene.update(); 
+			
+			scene.update();
 		}
+		
+		obj.onmouseup = function(e){
+			if (dragging){
+				console.log("x:" + currentObj.x);
+				console.log("y:" + currentObj.y);
+				dragging = false;
+			}
+		}
+		
 		//adds the character image to the screen
-		scene.add(obj); 
+		scene.add(obj);
+		
+		console.log(scene);
+		
+		panel.push({
+			"name" : url,
+			"x" : obj.x,  
+			"y" : obj.y,
+			"width" : obj.w, 
+			"height" : obj.h,
+		});
+		
 		currentObj = obj;
 		scene.update(); //image will not be added if this is commented out
 		pop.play(); //plays a 'pop' noise when adding a character image
@@ -249,7 +263,7 @@ cg.hFlip = function(obj){
 	
 	tmpCtx.translate(w/2, h/2);
 	tmpCtx.scale(-1, 1);
-	tmpCtx.drawImage(img, (-1*w/2), (-1*h/2));
+	tmpCtx.drawImage(img, (-1*w/2), (-1*h/2));// drawImage() draws an image, canvas, or video onto the canvas - can resize
 	tmpCanvas.id = obj.getCanvas().id;
 	obj.getCanvas().id = 'killme';
 	

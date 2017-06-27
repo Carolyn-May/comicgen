@@ -19,27 +19,54 @@
 	<div id="menuContainer">
 		<div id="logo">comicgen</div>
 		<div id="lib" class="rc">
-			
-		</div>
-	</div>
-	
-	<div id="cscreen">
-		<canvas class="rc" id="c" width="3200" height="2400">
-			your browser does not support HTML5. please use a newer browser version
-		</canvas>
-	</div>
-</div>
-
-<div id="hiddenObjs">
-	<div id="textTool" class="rc mini textTool" title="Adicionar texto" onclick="cg.createText();">T</div>
-	
 	<div id="instructs" class="rc instructions">
 		<b>Instructions</b>
 		<p>
-		Click the panel in the toolbar above to add a comic panel.<br>
-		Select added panel thumbnail to edit the panel.
+		Click 'add panel' to add and edit a comic panel.<br>
 		</p>
+	</div>	
+		</div>
 	</div>
+	
+	<!--  <div id="cscreen">
+		<canvas class="rc" id="c" width="3200" height="2400">
+			your browser does not support HTML5. please use a newer browser version
+		</canvas>
+	</div> -->
+	
+<!-- panel grids from https://stackoverflow.com/questions/2562737/what-ways-can-i-put-images-in-a-grid-like-format -->
+<!--  <div class="floated_img">
+    <img src="panels/squarePanel.png" alt="Some image">
+    
+</div>
+<div class="floated_img">
+    <img src="panels/squarePanel.png" alt="Another image">
+    
+</div> -->
+
+<div id="panelGrid">
+<a href="index.html">
+	<button class="button" onclick="addImage(1)" id="img1">Add Panel</button>
+	<button class="button" onclick="addImage(2)" id="img2">Add Panel</button>
+	<button class="button" onclick="addImage(3)" id="img3">Add Panel</button>
+	<button class="button" onclick="addImage(4)" id="img4">Add Panel</button>
+</a>
+</div>
+
+<!-- Changes the 'add panel' button to a panel image  -->
+<script>
+function addImage(i){
+    	document.getElementById("img" + i).innerHTML = "<img src='panels/squarePanel.png'/>"
+}
+</script>
+
+
+<style>
+#table{width:100%}
+#col1{width:50%}
+
+</style>
+
 </div>
 
 <script type="text/javascript" src="jquery-1.5.2.min.js"></script>

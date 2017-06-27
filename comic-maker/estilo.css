@@ -123,3 +123,38 @@ a{
 	background-color:rgba(0, 0, 0, 0.5);
 	margin: 0 auto 10px auto;
 }
+
+#panelGrid{
+	text-align:left;
+	padding:3px;
+	width: 800px;
+	height:700px;
+	background-color:rgba(0, 0, 0, 0.5);
+	float: left;
+	margin: 0 auto 10px auto;
+}
+/* Image grid for the panels in overworldView.html   */
+.floated_img{
+    float: left;
+}
+/* remove blue border around link images */
+a img {
+    border: none;
+}
+
+.button {
+    float: left;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(65, 60, 60);
+    font-size: 14px;
+    padding: 10px 25px;
+    text-align: center; 
+}
+
+.button:hover {
+    background-color: #c0c0c0656060; /*light gray*/
+}
+
+
+
