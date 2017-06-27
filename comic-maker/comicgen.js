@@ -143,8 +143,9 @@ cg.createImage = function(url){
 		
 		obj.onmouseup = function(e){
 			if (dragging){
-				console.log("x:" + currentObj.x);
-				console.log("y:" + currentObj.y);
+				currentObj = obj;
+				console.log("x:" + obj.x);
+				console.log("y:" + obj.y);
 				dragging = false;
 			}
 		}
