@@ -22,7 +22,7 @@
 		<div id="lib" class="rc">
 		
 		
-	<button class="button" onclick="addNew()" id="img1">Add Panel</button>
+	<button class="button"  onclick="addNew()" id="img1">Add Panel</button>
 	
 		</div>
 	</div>
@@ -45,7 +45,7 @@
     
 </div>-->
 
-  
+<!--  This is the dark container where all the added panels go -->
 <div id="panelGrid">
 
 	
@@ -62,6 +62,7 @@ function addImage(i){
 
 <img src="panels/squarePanel.png" alt="panel" class="thumbnails" id="panel" />
 
+<!--  Trying to make panels click-able/ direct to the index.html page -->
 <script>
 var images = document.getElementsByTagName("img");
 for(var i = 0; i < images.length; i++) {
@@ -69,15 +70,17 @@ for(var i = 0; i < images.length; i++) {
     image.onclick = function(event) {
          window.location.href = 'index.html';
     };
+    
 }
 </script>
 
+<!--  This method adds new panel on the dark container when add button is clicked.  -->
 <script> 
 function addNew() {
   var newImage = document.createElement("img");
   newImage.src = "panels/squarePanel.png";
- document.getElementById("panelGrid").appendChild(newImage);
- document.getElementById("img").innerHTML = "<img src='index.html'/>";
+  document.getElementById("panelGrid").appendChild(newImage);
+  document.getElementById("img").innerHTML = "<img src='index.html'/>"; 
 }
 </script> 
 

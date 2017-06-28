@@ -139,6 +139,7 @@ a{
 }
 /* remove blue border around link images */
 a img {
+	
     border: none;
 }
 
