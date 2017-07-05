@@ -78,7 +78,11 @@ function addNew() {
   var newImage = document.createElement("img");
   newImage.src = "panels/squarePanel.png";
   document.getElementById("panelGrid").appendChild(newImage); 
-  document.getElementById("panelGrid").appendChild(document.createTextNode('\u00A0'));
+  document.getElementById("panelGrid").appendChild(document.createTextNode('\u00A0')); <!-- this adds a space between panels -->
+  newImage.onclick = function(event) {
+	  window.location.href = "index.html";
+  }
+  
   //document.getElementById("img").innerHTML = "<img src='index.html'/>"; 
   console.log("new image");
 }
