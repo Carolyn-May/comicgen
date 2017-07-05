@@ -47,9 +47,7 @@
 
 <!--  This is the dark container where all the added panels go -->
 <div id="panelGrid">
-
 	
-
 </div> 
 
 
@@ -68,7 +66,7 @@ var images = document.getElementsByTagName("img");
 for(var i = 0; i < images.length; i++) {
     var image = images[i];
     image.onclick = function(event) {
-         window.location.href = 'index.html';
+         window.location.href = "img" + 'index.html';
     };
     
 }
@@ -78,10 +76,11 @@ for(var i = 0; i < images.length; i++) {
 <script> 
 function addNew() {
   var newImage = document.createElement("img");
-  //var space = document.createElement(" ");
   newImage.src = "panels/squarePanel.png";
-  document.getElementById("panelGrid").appendChild(newImage);  
+  document.getElementById("panelGrid").appendChild(newImage); 
+  document.getElementById("panelGrid").appendChild(document.createTextNode('\u00A0'));
   //document.getElementById("img").innerHTML = "<img src='index.html'/>"; 
+  console.log("new image");
 }
 </script> 
 
