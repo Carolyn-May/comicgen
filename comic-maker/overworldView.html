@@ -61,7 +61,7 @@ function addImage(i){
 <img src="panels/squarePanel.png" alt="panel" class="thumbnails" id="panel" />
 
 <!--  Trying to make panels click-able/ direct to the index.html page -->
-<script>
+<!-- <script>
 var images = document.getElementsByTagName("img");
 for(var i = 0; i < images.length; i++) {
     var image = images[i];
@@ -70,7 +70,7 @@ for(var i = 0; i < images.length; i++) {
     };
     
 }
-</script>
+</script> -->
 
 <!--  This method adds new panel on the dark container when add button is clicked.  -->
 <script> 
@@ -78,8 +78,10 @@ function addNew() {
   var newImage = document.createElement("img");
   newImage.src = "panels/squarePanel.png";
   document.getElementById("panelGrid").appendChild(newImage); 
+  <!-- https://stackoverflow.com/questions/10951340/create-a-blank-html-space-on-the-fly-javascript -->
   document.getElementById("panelGrid").appendChild(document.createTextNode('\u00A0')); <!-- this adds a space between panels -->
-  newImage.onclick = function(event) {
+  <!-- https://stackoverflow.com/questions/3316207/add-onclick-event-to-newly-added-element-in-javascript -->
+  newImage.onclick = function(event) { <!-- This makes the newly added panel clickable and it redirects to index.html -->
 	  window.location.href = "index.html";
   }
   
