@@ -24,7 +24,7 @@ var toonUrls = ["sm01.png", "sm02.png", "sm03.png", "sushi.png", "z01.png", "z02
 var examplePanel = [
 	//"sprite01" : 
 	{
-		"name" : "sprite01",
+		//"name" : "sprite01",
 		"url" : "sm01.png",
 	    "x" : "", //cg.x? 
 	    "y" : "",
@@ -33,7 +33,7 @@ var examplePanel = [
 	},
 	//"sprite02" : 
 	{
-		"name" : "sprite02",
+		//"name" : "sprite02",
 		"url" : "sm02.png",
 		"x" : "",
 	    "y" : "",
@@ -41,9 +41,25 @@ var examplePanel = [
 	    "height" : "",
 	}];
 
+/* actual array of sprites and their properties (modeled like the above example) */
 var panel = [];
 
 /////I added this code above
+
+/*
+ * Find sprite in panel [] by url, testing fucntion for the built in .find() 
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+ * Copied portion of this.remove in original ragaboom framework
+ */
+cg.findSprite = function(url){
+	//iterate over each sprite in panel to look for a 'url' property match
+	for(var i = 0; i < panel.length; i++){
+		if(url == panel[i].url){
+			return panel[i];
+			//break; //should not break in case of multiples of a sprite in the panel, which the user should be able to add
+		}
+	} 
+}
 
 cg.clearScreen = function(){
 	ctx = c.getContext('2d');
@@ -82,6 +98,7 @@ $(d).keydown(function(event){
 
 	if(key == 38 && currentObj){
 		cg.zoomIn(currentObj);
+		//console.log(panel.find(cg.findSprite));
 	}
 	
 	if(key == 40 && currentObj){
@@ -141,22 +158,25 @@ cg.createImage = function(url){
 			scene.update();
 		}
 		
+		
 		obj.onmouseup = function(e){
-			if (dragging){
+			if (dragging) {
 				currentObj = obj;
 				console.log("x:" + obj.x);
 				console.log("y:" + obj.y);
 				dragging = false;
-			}
+				scene.onmousemove();
+		}
 		}
 		
 		//adds the character image to the screen
 		scene.add(obj);
 		
+		
 		console.log(scene);
 		
 		panel.push({
-			"name" : url,
+			"url" : url,
 			"x" : obj.x,  
 			"y" : obj.y,
 			"width" : obj.w, 
