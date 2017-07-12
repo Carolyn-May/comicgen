@@ -19,46 +19,7 @@ var miniUrls = ["squarePanel_mini.png"];
 //stores the URL for the actual image that should be placed on the screen
 var toonUrls = ["squarePanel.png"];
 
-//helper functions for image object coordinates and size
-/*cg.getX = function(obj) {
-	return obj.x;
-}
 
-cg.getY = function(obj) {
-	return obj.y;
-}
-
-cg.getWidth = function(obj) {
-	 return obj.w;
-}
-
-cg.getHeight = function(obj) {
-	return obj.h;
-		
-}
-
-//////////array of modified sprites
-var panel = [
-	//"sprite01" : 
-	{
-		"name" : "sprite01",
-	    "x" : cg.getX('toons/sm01_mini.png'),
-	    "y" : cg.getY('toons/sm01_mini.png'),
-	    "width" : cg.getWidth('toons/sm01_mini.png'),
-	    "height" : cg.getHeight('toons/sm01_mini.png'),
-	    //"rotation" : ""
-	},
-	//"sprite02" : 
-	{
-		"name" : "sprite02",
-	    "x" : cg.getX('toons/sm02_mini.png'),
-	    "y" : cg.getY('toons/sm02_mini.png'),
-	    "width" : cg.getWidth('toons/sm02_mini.png'),
-	    "height" : cg.getHeight('toons/sm02_mini.png'),
-	    //"rotation" : ""
-	}];
-/////I added this code above
-*/
 cg.clearScreen = function(){
 	ctx = c.getContext('2d');
 	scene = new RB.Scene(c);

@@ -9,6 +9,9 @@ var fontFamily = "Arial, helvetica";
 var pop = new Audio('pop.ogg');
 var currentObj = null;
 
+var changedX;
+var changedY;
+
 scene.add( scene.rect(w, h, 'white') ); //scene.add attaches the object o in ragaboom's this.add = function(o) to the scene object
 //basically adds a new object to the screen
 scene.update(); //update the canvas only once - repainting every object in the Canvas area
@@ -41,6 +44,7 @@ var examplePanel = [
 	    "height" : "",
 	}];
 
+var comic = [];
 /* actual array of sprites and their properties (modeled like the above example) */
 var panel = [];
 
@@ -51,10 +55,11 @@ var panel = [];
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
  * Copied portion of this.remove in original ragaboom framework
  */
-cg.findSprite = function(url){
+cg.findSprite = function(o){
+	var uid = o.getId();
 	//iterate over each sprite in panel to look for a 'url' property match
 	for(var i = 0; i < panel.length; i++){
-		if(url == panel[i].url){
+		if(uid == panel[i].getId()){
 			return panel[i];
 			//break; //should not break in case of multiples of a sprite in the panel, which the user should be able to add
 		}
@@ -87,7 +92,8 @@ $(d).keyup(function(e){
 	}
 	
 	if( currentObj && (key==37 || key==39) ){
-		console.log("flip sprite - d.keyup(function(e)")
+		console.log("flip sprite - d.keyup(function(e)");
+		//panel.find(findSprite);
 		cg.hFlip(currentObj);
 	}
 });
@@ -132,6 +138,45 @@ cg.buildMinis = function(){
 
 cg.buildMinis();
 
+////////////////////////////
+//Helper function to get an element's exact position
+/*function getPosition(el) {
+  var xPos = 0;
+  var yPos = 0;
+ 
+  while (el) {
+    if (el.tagName == "BODY") {
+      // deal with browser quirks with body/window/document and page scroll
+      var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+      var yScroll = el.scrollTop || document.documentElement.scrollTop;
+ 
+      xPos += (el.offsetLeft - xScroll + el.clientLeft);
+      yPos += (el.offsetTop - yScroll + el.clientTop);
+    } else {
+      // for all other non-BODY elements
+      xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+      yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+    }
+ 
+    el = el.offsetParent;
+  }
+  return {
+    x: xPos,
+    y: yPos
+  };
+}*/
+
+//search for sprite by url in panel array
+function changeDesc(url , x, y) {
+	   for (var i in panel) {
+	     if (panel[i].url == url) {
+	        panel[i].x = x;
+	        panel[i].y = y;
+	        break; //Stop this loop, we found it!
+	     }
+	   }
+	}
+
 //add images to the screen
 cg.createImage = function(url){
 	console.log("cg.createimage");
@@ -142,7 +187,8 @@ cg.createImage = function(url){
 		//sets the image in this location after clicking on it
 		obj.setXY(30, 30); 
 		//obj.setXY(Math.random()*800, Math.random()*800); 
-		
+		//var position = getPosition(obj);
+		currentObj = obj;
 		var dragging = false;
 		
 		obj.onmousedown = function(e){ //enables image dragging on mouse down
@@ -151,43 +197,64 @@ cg.createImage = function(url){
 			console.log("being dragged");
 			
 			currentObj = obj;
+			
+			changedX = currentObj.x;
+			changedY = currentObj.y;
+			
+			obj.setXY(currentObj.x, currentObj.y);
+			console.log(obj.x + " " + obj.y);
+			
+			changeDesc(url, changedX, changedY);
+			
+			//you can see that the x and y position change but only when clicking down, we want this to change when the click is released
+			//so that the position is where you leave the sprite
+			//console.log(changedX + " " + changedY);
+			
 			//stack order of element: element with greater stack order is always in front of element with lower stack order
 			scene.zIndex(obj, 1); 
 			//having z index set to 1 makes the character image being dragged in the scene appear in front of any other images in the scene
 			
 			scene.update();
 		}
+		//obj.setXY(currentObj.x, currentObj.y);
 		
-		
+		//code doesnt seem to run through this function, statements dont print
 		obj.onmouseup = function(e){
 			if (dragging) {
 				currentObj = obj;
 				console.log("x:" + obj.x);
 				console.log("y:" + obj.y);
 				dragging = false;
-				scene.onmousemove();
+				//scene.onmousemove();
 		}
 		}
 		
 		//adds the character image to the screen
 		scene.add(obj);
 		
+		currentObj = obj;
 		
 		console.log(scene);
 		
+		//console.log(changedX + " " + changedY);
+		
 		panel.push({
 			"url" : url,
-			"x" : obj.x,  
-			"y" : obj.y,
+			"x" : currentObj.x,  
+			"y" : currentObj.y,
 			"width" : obj.w, 
 			"height" : obj.h,
 		});
 		
+		console.log(obj.x + " " + obj.y);
 		currentObj = obj;
 		scene.update(); //image will not be added if this is commented out
 		pop.play(); //plays a 'pop' noise when adding a character image
 	});
 }
+
+////////////////////////////
+
 
 cg.createText = function(){
 	var txt = prompt("Adicione um texto:");
@@ -308,4 +375,7 @@ cg.setScreen = function(w, h){
 			//cg.clearScreen();
 		}
 	}
+
+localStorage.setItem(c, c.toDataURL());	//(canvasName, canvas.toDataURL())
+	
 }
