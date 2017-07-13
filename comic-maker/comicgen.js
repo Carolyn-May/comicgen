@@ -33,6 +33,7 @@ var examplePanel = [
 	    "y" : "",
 	    "width" : "", //cg.w?
 	    "height" : "",
+	    "flipped" : "", //true, false flag?
 	},
 	//"sprite02" : 
 	{
@@ -42,6 +43,7 @@ var examplePanel = [
 	    "y" : "",
 	    "width" : "",
 	    "height" : "",
+	    "flipped" : "",
 	}];
 
 var comic = [];
@@ -55,7 +57,7 @@ var panel = [];
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
  * Copied portion of this.remove in original ragaboom framework
  */
-cg.findSprite = function(o){
+/*cg.findSprite = function(o){
 	var uid = o.getId();
 	//iterate over each sprite in panel to look for a 'url' property match
 	for(var i = 0; i < panel.length; i++){
@@ -64,6 +66,71 @@ cg.findSprite = function(o){
 			//break; //should not break in case of multiples of a sprite in the panel, which the user should be able to add
 		}
 	} 
+}
+*/
+
+//could prolly refactor the functions below 
+
+//search for sprite by url in panel array, update x and y coordinates
+//(this works)
+function changeDesc(url , x, y) {
+	   for (var i in panel) {
+	     if (panel[i].url == url) {
+	        panel[i].x = x;
+	        panel[i].y = y;
+	        break; //Stop this loop, we found it!
+	     }
+	   }
+	}
+
+//delete sprite from panel array
+//(this works)
+function deleteSprite(o) {
+	var uid = o.id;
+	
+	for (var i in panel) {
+	     if (uid == panel[i].id) {
+	    	 panel.splice(i, 1);
+	    	 break;
+	     }
+	}
+}
+
+//update width and height of sprite in panel array
+function zoomInSprite (o) {
+	var uid = o.id;
+	
+	for (var i in panel) {
+	     if (uid == panel[i].id) {
+	    	var w = panel[i].width * 0.05;
+	    	var h = panel[i].height * 0.05;
+	    	
+	    	panel[i].width += w;
+	    	panel[i].height += h;
+	    	panel[i].x -= (w/2);
+	    	panel[i].y -= (h/2);
+	    	break;
+	     }
+	 }
+}
+
+function zoomOutSprite (o) {
+	var uid = o.id;
+	
+	for (var i in panel) {
+	     if (uid == panel[i].id) {
+	    	 var w = panel[i].width * 0.05;
+    		 var h = panel[i].height * 0.05;
+	    
+	    	 if(panel[i].width - w > 0 && panel[i].height - h > 0) {
+	    		 panel[i].width -= w;
+	    		 panel[i].height -= h;
+	    		 panel[i].x += (w/2);
+	    		 panel[i].y += (h/2);
+	    		 break;
+	    	 }//height width comparison end
+	     }//id comparison end
+	 }//for loop end
 }
 
 cg.clearScreen = function(){
@@ -85,7 +152,11 @@ $(d).keyup(function(e){
 
 	if(key == 46 && currentObj){
 		console.log("deleted sprite - d.keyup(function(e)");
+		
+		deleteSprite(currentObj); //delete sprite from panel
+		
 		scene.remove(currentObj); //removes object from the scene
+		
 		scene.update();
 		RB.destroyCanvas( currentObj.getCanvas().id );
 		currentObj = null;
@@ -103,11 +174,12 @@ $(d).keydown(function(event){
 	var key = event.keyCode || event.which;
 
 	if(key == 38 && currentObj){
+		zoomInSprite(currentObj);
 		cg.zoomIn(currentObj);
-		//console.log(panel.find(cg.findSprite));
 	}
 	
 	if(key == 40 && currentObj){
+		zoomOutSprite(currentObj);
 		cg.zoomOut(currentObj);
 	}
 });
@@ -165,17 +237,6 @@ cg.buildMinis();
     y: yPos
   };
 }*/
-
-//search for sprite by url in panel array
-function changeDesc(url , x, y) {
-	   for (var i in panel) {
-	     if (panel[i].url == url) {
-	        panel[i].x = x;
-	        panel[i].y = y;
-	        break; //Stop this loop, we found it!
-	     }
-	   }
-	}
 
 //add images to the screen
 cg.createImage = function(url){
