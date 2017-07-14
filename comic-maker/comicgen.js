@@ -46,33 +46,17 @@ var examplePanel = [
 	    "flipped" : "",
 	}];
 
+/*array of panels */
 var comic = [];
 /* actual array of sprites and their properties (modeled like the above example) */
 var panel = [];
 
 /////I added this code above
 
-/*
- * Find sprite in panel [] by url, testing fucntion for the built in .find() 
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
- * Copied portion of this.remove in original ragaboom framework
- */
-/*cg.findSprite = function(o){
-	var uid = o.getId();
-	//iterate over each sprite in panel to look for a 'url' property match
-	for(var i = 0; i < panel.length; i++){
-		if(uid == panel[i].getId()){
-			return panel[i];
-			//break; //should not break in case of multiples of a sprite in the panel, which the user should be able to add
-		}
-	} 
-}
-*/
 
-//could prolly refactor the functions below 
+//could refactor the functions below 
 
 //search for sprite by url in panel array, update x and y coordinates
-//(this works)
 function changeDesc(url , x, y) {
 	   for (var i in panel) {
 	     if (panel[i].url == url) {
@@ -84,9 +68,8 @@ function changeDesc(url , x, y) {
 	}
 
 //delete sprite from panel array
-//(this works)
 function deleteSprite(o) {
-	var uid = o.id;
+	var uid = o.id;//change this 
 	
 	for (var i in panel) {
 	     if (uid == panel[i].id) {
@@ -96,7 +79,7 @@ function deleteSprite(o) {
 	}
 }
 
-//update width and height of sprite in panel array
+//increase and update width and height of sprite in panel array
 function zoomInSprite (o) {
 	var uid = o.id;
 	
@@ -114,6 +97,7 @@ function zoomInSprite (o) {
 	 }
 }
 
+//decrease and update  width and height of sprite in panel array
 function zoomOutSprite (o) {
 	var uid = o.id;
 	
@@ -174,12 +158,12 @@ $(d).keydown(function(event){
 	var key = event.keyCode || event.which;
 
 	if(key == 38 && currentObj){
-		zoomInSprite(currentObj);
+		zoomInSprite(currentObj); //zoom in on sprite in panel 
 		cg.zoomIn(currentObj);
 	}
 	
 	if(key == 40 && currentObj){
-		zoomOutSprite(currentObj);
+		zoomOutSprite(currentObj); //zoom out of sprite in panel 
 		cg.zoomOut(currentObj);
 	}
 });
@@ -210,7 +194,6 @@ cg.buildMinis = function(){
 
 cg.buildMinis();
 
-////////////////////////////
 //Helper function to get an element's exact position
 /*function getPosition(el) {
   var xPos = 0;
@@ -243,10 +226,13 @@ cg.createImage = function(url){
 	console.log("cg.createimage");
 	////load an image inside a buffer canvas and return it in a RB.Obj - maybe I can pass in the modified sprites in panel instead?
 	scene.image(url, function(obj){ 
+		console.log(JSON.stringify(obj));
+		console.log("id: " + obj.id);
 		//allows the character image to be dragged on the screen (after already being added to the scene)
 		obj.draggable = true;
 		//sets the image in this location after clicking on it
 		obj.setXY(30, 30); 
+		
 		//obj.setXY(Math.random()*800, Math.random()*800); 
 		//var position = getPosition(obj);
 		currentObj = obj;
@@ -313,9 +299,6 @@ cg.createImage = function(url){
 		pop.play(); //plays a 'pop' noise when adding a character image
 	});
 }
-
-////////////////////////////
-
 
 cg.createText = function(){
 	var txt = prompt("Adicione um texto:");
@@ -422,8 +405,6 @@ cg.hFlip = function(obj){
 	obj.x=cX; obj.y=cY; obj.h=cH; obj.w=cW;	
 	scene.update();
 }
-
-//add a function for rotation?
 
 cg.setScreen = function(w, h){
 	if(w && h && !isNaN(w) && !isNaN(h)){

@@ -5,16 +5,85 @@
 <link href="estilo.css" type="text/css" rel="stylesheet"/>
 <title>comicgen</title>
 
+<script>
+function show(shown, hidden) {
+  document.getElementById(shown).style.display='block';
+  document.getElementById(hidden).style.display='none';
+  return false;
+}
+</script>
+
 <style type="text/css">
 </style>
 </head>
+
 <body>
 
-<div id="toolbar" class="rcBottom">
+<div id="Page1">
+    <div id="toolbar" class="rcBottom">
+	<div>NAVIGATION</div>
+	<a href="index.html">Go to Panel Editor</a>
+</div>
+
+<div id="container">
+	<div id="menuContainer">
+		<div id="logo">comicgen</div>
+		<div id="addpanel" class="rc">
+		
+		
+	<button class="button"  onclick="addNew()" id="img1">Add Panel</button>
+	
+		</div>
+	</div>
+
+<!--  This is the dark container where all the added panels go -->
+<div id="panelGrid">
+	
+</div> 
+
+<img src="panels/squarePanel.png" alt="panel" class="thumbnails" id="panel" />
+
+<!--  This method adds new panel on the dark container when add button is clicked.  -->
+<script> 
+function addNew() {
+  var newImage = document.createElement("img");
+  newImage.src = "panels/squarePanel.png";
+  document.getElementById("panelGrid").appendChild(newImage); 
+  <!-- https://stackoverflow.com/questions/10951340/create-a-blank-html-space-on-the-fly-javascript -->
+  document.getElementById("panelGrid").appendChild(document.createTextNode('\u00A0')); <!-- this adds a space between panels -->
+  <!-- https://stackoverflow.com/questions/3316207/add-onclick-event-to-newly-added-element-in-javascript -->
+  newImage.onclick = function(event) { <!-- This makes the newly added panel clickable and it redirects to index.html -->
+	  window.location.href = "index.html";
+  }
+  
+  //document.getElementById("img").innerHTML = "<img src='index.html'/>"; 
+  console.log("new image");
+}
+</script> 
+
+<style>
+#table{width:100%}
+#col1{width:50%}
+
+</style>
+
+</div>
+
+<script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="ragaboom.js"></script> <!-- change from ragaboom.min.js to ragaboom.js -->
+<script type="text/javascript" src="overworld.js"></script> <!-- new js file for the overworld -->
+<script type="text/javascript">
+
+</script>
+    <a href="#" onclick="return show('Page2','Page1');">Show page 2</a>
+</div>
+
+<div id="Page2" style="display:none">
+    <div id="toolbar" class="rcBottom">
 	<div>TOOLBAR</div>
 	<a href="javascript:cg.saveImage();">Save image</a> |
 	<a href="javascript:cg.setScreen(800, 600)">800x600</a> | 
-	<a href="javascript:cg.setScreen(640, 480)">640x480</a> | 
+	<a href="javascript:cg.setScreen(640, 480)">640x480</a> |  
 	<a href="javascript:cg.setScreen(320, 240)">320x240</a> |
 	<a href="overworldView.html">Go Back to Main Page</a>
 </div>
@@ -54,6 +123,10 @@
 <script type="text/javascript">
 
 </script>
+    <a href="#" onclick="return show('Page1','Page2');">Show page 1</a>
+</div>
+  
+ 
 
 </body>
 </html>
