@@ -27,6 +27,12 @@ a{
 	float:left;
 }
 
+#overworldContainer{
+	width:220px;
+	height: 420px;
+	float:left;
+}
+
 #lib{
 	padding-top:5px;
 	padding-left:5px;
