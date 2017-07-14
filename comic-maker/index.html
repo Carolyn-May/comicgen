@@ -53,7 +53,7 @@ function addNew() {
   document.getElementById("panelGrid").appendChild(document.createTextNode('\u00A0')); <!-- this adds a space between panels -->
   <!-- https://stackoverflow.com/questions/3316207/add-onclick-event-to-newly-added-element-in-javascript -->
   newImage.onclick = function(event) { <!-- This makes the newly added panel clickable and it redirects to index.html -->
-	  window.location.href = "index.html";
+	  show('Page2', 'Page1');
   }
   
   //document.getElementById("img").innerHTML = "<img src='index.html'/>"; 
