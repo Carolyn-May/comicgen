@@ -243,7 +243,7 @@ cg.createImage = function(url){
 			
 			console.log("being dragged");
 			
-			currentObj = obj;
+			currentObj = obj; 
 			
 			changedX = currentObj.x;
 			changedY = currentObj.y;
