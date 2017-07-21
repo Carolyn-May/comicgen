@@ -50,7 +50,9 @@ var comic = [];
 var panel = [];
 
 /////I added this code above
-
+function addNewPanel() {
+	comic.push(panel);
+}
 //could refactor the functions below 
 
 //search for sprite by url in panel array, update x and y coordinates
