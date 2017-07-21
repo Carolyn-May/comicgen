@@ -226,8 +226,8 @@ cg.createImage = function(url){
 	console.log("cg.createimage");
 	////load an image inside a buffer canvas and return it in a RB.Obj - maybe I can pass in the modified sprites in panel instead?
 	scene.image(url, function(obj){ 
-		console.log(JSON.stringify(obj));
-		console.log("id: " + obj.id);
+		//console.log(JSON.stringify(obj));
+		//console.log("id: " + obj.id);
 		//allows the character image to be dragged on the screen (after already being added to the scene)
 		obj.draggable = true;
 		//sets the image in this location after clicking on it
@@ -276,24 +276,17 @@ cg.createImage = function(url){
 		}
 		}
 		
+		panel.push(obj); ////yay
+		
+		var lastElement = panel.length - 1;
+		
+		scene.add(panel[lastElement]);
 		//adds the character image to the screen
-		scene.add(obj);
+		//scene.add(obj);
+				
+		console.log(panel[lastElement]);
 		
-		currentObj = obj;
-		
-		console.log(scene);
-		
-		//console.log(changedX + " " + changedY);
-		
-		panel.push({
-			"url" : url,
-			"x" : currentObj.x,  
-			"y" : currentObj.y,
-			"width" : obj.w, 
-			"height" : obj.h,
-		});
-		
-		console.log(obj.x + " " + obj.y);
+		//console.log(obj.x + " " + obj.y);
 		currentObj = obj;
 		scene.update(); //image will not be added if this is commented out
 		pop.play(); //plays a 'pop' noise when adding a character image
