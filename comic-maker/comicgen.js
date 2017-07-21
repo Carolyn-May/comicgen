@@ -25,7 +25,6 @@ var toonUrls = ["sm01.png", "sm02.png", "sm03.png", "sushi.png", "z01.png", "z02
 
 //////////array of modified sprites
 var examplePanel = [
-	//"sprite01" : 
 	{
 		//"name" : "sprite01",
 		"url" : "sm01.png",
@@ -35,7 +34,6 @@ var examplePanel = [
 	    "height" : "",
 	    "flipped" : "", //true, false flag?
 	},
-	//"sprite02" : 
 	{
 		//"name" : "sprite02",
 		"url" : "sm02.png",
@@ -52,7 +50,6 @@ var comic = [];
 var panel = [];
 
 /////I added this code above
-
 
 //could refactor the functions below 
 
@@ -194,33 +191,6 @@ cg.buildMinis = function(){
 
 cg.buildMinis();
 
-//Helper function to get an element's exact position
-/*function getPosition(el) {
-  var xPos = 0;
-  var yPos = 0;
- 
-  while (el) {
-    if (el.tagName == "BODY") {
-      // deal with browser quirks with body/window/document and page scroll
-      var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-      var yScroll = el.scrollTop || document.documentElement.scrollTop;
- 
-      xPos += (el.offsetLeft - xScroll + el.clientLeft);
-      yPos += (el.offsetTop - yScroll + el.clientTop);
-    } else {
-      // for all other non-BODY elements
-      xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-      yPos += (el.offsetTop - el.scrollTop + el.clientTop);
-    }
- 
-    el = el.offsetParent;
-  }
-  return {
-    x: xPos,
-    y: yPos
-  };
-}*/
-
 //add images to the screen
 cg.createImage = function(url){
 	console.log("cg.createimage");
@@ -278,6 +248,7 @@ cg.createImage = function(url){
 		
 		panel.push(obj); ////yay
 		
+		
 		var lastElement = panel.length - 1;
 		
 		scene.add(panel[lastElement]);
@@ -286,7 +257,6 @@ cg.createImage = function(url){
 				
 		console.log(panel[lastElement]);
 		
-		//console.log(obj.x + " " + obj.y);
 		currentObj = obj;
 		scene.update(); //image will not be added if this is commented out
 		pop.play(); //plays a 'pop' noise when adding a character image
@@ -411,6 +381,7 @@ cg.setScreen = function(w, h){
 		}
 	}
 
-localStorage.setItem(c, c.toDataURL());	//(canvasName, canvas.toDataURL())
+//localStorage.setItem(c, c.toDataURL());	//(canvasName, canvas.toDataURL())
+
 	
 }

@@ -291,22 +291,6 @@ RB.Scene = function(b, k) {
         for (var a = d.length, b = 0; b < a; b++) d[b].run()
     };
     this.doAfterLoad = function() {}
-    /////////
-    this.run = function() {
-        this.fn()
-    };
-    
-    this.fn = function() {
-        this.draw()
-    };
-    
-    this.draw = function(a, b) {
-        try {
-            a && b ? u.drawImage(s, this.x, this.y, a, b) : u.drawImage(s, this.x, this.y, this.w, this.h)
-        } catch (d) {
-            throw d;
-        }
-    }; /////added these things due to function not defined error when using scene.add() in comicgen
 };
 RB.Obj = function(b, k, n, d) {
     if (!k) throw "RB.Obj(c, sceneContext, _x, _y): You must specify a scene context";
