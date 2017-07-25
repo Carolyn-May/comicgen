@@ -50,9 +50,23 @@ var comic = [];
 var panel = [];
 
 /////I added this code above
+
+/* Adds the new panel to comic array */
 function addNewPanel() {
 	comic.push(panel);
 }
+
+//This creates a unique id for each panel. Not sure how to use it yet...
+//https://stackoverflow.com/questions/33554120/incrementing-object-id-automatically-js-constructor-static-method-and-variable
+var panelClass = (function() {
+	var panelId = 1;
+	return function panelClass(name) { //name of the panel. we need to add this
+		this.name = name;
+		this.id = panelId++;
+	}
+}) ();
+
+
 //could refactor the functions below 
 
 //search for sprite by url in panel array, update x and y coordinates
@@ -348,7 +362,7 @@ cg.zoomIn = function(obj){
 	scene.update();
 }
 
-cg.hFlip = function(obj){
+cg.hFlip = function(obj) {
 	var tmpCanvas = $(obj.getCanvas()).clone()[0];
 	var img = obj.getCanvas();
 	var tmpCtx = tmpCanvas.getContext('2d');
