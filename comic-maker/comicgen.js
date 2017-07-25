@@ -171,12 +171,12 @@ $(d).keydown(function(event){
 	var key = event.keyCode || event.which;
 
 	if(key == 38 && currentObj){
-		zoomInSprite(currentObj); //zoom in on sprite in panel 
+		//zoomInSprite(currentObj); //zoom in on sprite in panel 
 		cg.zoomIn(currentObj);
 	}
 	
 	if(key == 40 && currentObj){
-		zoomOutSprite(currentObj); //zoom out of sprite in panel 
+		//zoomOutSprite(currentObj); //zoom out of sprite in panel 
 		cg.zoomOut(currentObj);
 	}
 });
@@ -358,7 +358,7 @@ cg.zoomIn = function(obj){
 	
 	obj.x -= (w/2);
 	obj.y -= (h/2);
-	
+	console.log ("zoom in");
 	scene.update();
 }
 
